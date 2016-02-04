@@ -1,5 +1,5 @@
 # whocasa
-Send notifications who is home
+Send notifications who leaves or enters home
 
 1) register in http://www.pushetta.com
 
