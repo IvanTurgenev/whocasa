@@ -5,7 +5,7 @@ Send notifications who is home
 
 2) create a channel in pushetta and grab you api key
 
-3) paste the in the script
+3) paste the in the script your api key and channel name
 
 4) install pusheta in your phone
 
