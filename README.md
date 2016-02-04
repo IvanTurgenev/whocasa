@@ -15,3 +15,5 @@ Send notifications who is home
 
 7) add those MAC adresses to ids.csv MACADDRESS,NAMEDEVICE
 
+8) script at start up add to /etc/rc.local the line before exit 0. python3 /home/pi/ph/ph.py &
+
