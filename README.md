@@ -1,5 +1,6 @@
 # whocasa
 Send notifications who is home
+
 1) register in http://www.pushetta.com
 
 2) create a channel in pushetta and grab you api key
