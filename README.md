@@ -13,3 +13,5 @@ Send notifications who is home
 
 6) use nmap or Fing(android app) to determine the MAC adresses of the devices you wanna keep track and inform
 
+7) add those MAC adresses to ids.csv MACADDRESS,NAMEDEVICE
+
