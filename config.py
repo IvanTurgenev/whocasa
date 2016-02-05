@@ -1,0 +1,6 @@
+# config.py:
+
+API_KEY="YOUR KEY"
+CHANNEL_NAME="YOUR CHANNEL NAME"
+#en es etc
+LANG="YOU LANG"
