@@ -2,5 +2,6 @@
 
 API_KEY="YOUR KEY"
 CHANNEL_NAME="YOUR CHANNEL NAME"
-#en es etc
-LANG="YOU LANG"
+#string for has leaved and has entered
+HASLE="has leaved"
+HASEN="has entered"
