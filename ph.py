@@ -22,7 +22,7 @@ def push(x):
 
 #ids csv file of MACADDRESS,DEVICENAME
 ids = {}
-for key, val in csv.reader(open("WHERE IS.csv")):
+for key, val in csv.reader(open("ids.csv")):
     ids[key] = val
 
 kid = list(ids.keys())
@@ -65,9 +65,9 @@ def loop(bc):
 
 	for key in chan:
 		if vb1[key] == True:
-			push(ids[key] + "a llegado") 
+			push(ids[key] + HASEN) 
 		else vb1[key] == False:
-			push(ids[key] + "a salido")
+			push(ids[key] + HASLE)
 	loop(vb1)
 
 loop(vb)
