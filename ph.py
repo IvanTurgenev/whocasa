@@ -56,17 +56,17 @@ def loop(bc):
         	vb1[key] = True
 	for key in matchf1:
         	vb1[key] = False
-	print(vb1)
 
 	#vb1 = dict(vb)
 	#False = vb1['MACADDDRES']
 	chan = [k for k in bc if bc[k] != vb1[k]]
+	
 	print(chan)
 
 	for key in chan:
 		if vb1[key] == True:
 			push(ids[key] + HASEN) 
-		else vb1[key] == False:
+		else:
 			push(ids[key] + HASLE)
 	loop(vb1)
 
