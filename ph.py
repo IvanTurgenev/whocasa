@@ -60,9 +60,8 @@ def loop(bc):
 	#vb1 = dict(vb)
 	#False = vb1['MACADDDRES']
 	chan = [k for k in bc if bc[k] != vb1[k]]
-	
-	print(chan)
 
+	print (chan)
 	for key in chan:
 		if vb1[key] == True:
 			push(ids[key] + HASEN) 
