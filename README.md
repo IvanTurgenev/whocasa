@@ -1,11 +1,13 @@
 # whocasa
-Send notifications who leaves or enters home
+Send notifications who leaves or enters home by cellphones, laptops etc
+
+nice on mini linux boards
 
 1) register in http://www.pushetta.com
 
-2) create a channel in pushetta and grab you api key
+2) create a channel in pushetta and grab your api key from the dashboard
 
-3) paste the in the script your api key and channel name
+3) paste the api key and channel name in the config.py
 
 4) do pip3 install pushetta
 
@@ -13,7 +15,7 @@ Send notifications who leaves or enters home
 
 6) suscribe to your channel in the app
 
-7) use nmap or Fing(android app) to determine the MAC adresses of the devices you wanna keep track and inform
+7) use nmap or Fing(android app) to determine the MAC adresses of the devices you wanna keep track
 
 8) add those MAC adresses to ids.csv MACADDRESS,NAMEDEVICE
 
