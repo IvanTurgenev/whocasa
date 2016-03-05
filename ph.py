@@ -57,6 +57,7 @@ while True :
 	else:
 		vb = vb1
 		vb1 = {}
+		count = 10
 
 	if count == 10 :
 		vbr = {}
