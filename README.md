@@ -1,4 +1,7 @@
 # whocasa
+
+UPDATE: Found a better way to detect iphones but my coding skills suck to translate this C# code to python. http://www.power-home.com/forum/forum_posts.asp?TID=3250
+
 Send notifications who leaves or enters home by cellphones, laptops etc
 
 nice on mini linux boards
