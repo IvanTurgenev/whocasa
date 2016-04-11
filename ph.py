@@ -6,7 +6,18 @@ from config import *
 from pushetta import Pushetta
 
 def nmac():
-	x = subprocess.check_output(""" sudo nmap -sn 192.168.1.0/24 | grep --color=never -Po 'Address: \K.[^ ]*' """,shell=True).decode(sys.stdout.encoding).split("\n")
+	try:
+		x = subprocess.check_output(""" sudo nmap -sn 192.168.1.0/24 | grep --color=never -Po 'Address: \K.[^ ]*' """,shell=True).decode(sys.stdout.encoding).split("\n")
+		#print("NMAC X POP")
+		#print(x.pop())
+
+	except subprocess.CalledProcessError as e:
+		
+		print (e.output)
+		print("retrying in 60 seconds")
+		time.sleep(60)
+		x = nmac()
+			
 	x.pop()
 	return (x)
 
@@ -29,6 +40,8 @@ def addb(dic,key,val):
 
 def ctb(ids,vb) :
 	mac = nmac()
+	print("NMAC")
+	print(mac)
 	matchv = list(set(kid).intersection(mac))
 	matchf = list(set(kid).difference(matchv))
 
@@ -46,6 +59,9 @@ for key, val in csv.reader(open("ids.csv")):
 
 kid = list(ids.keys())
 
+print("KID")
+print(kid)
+
 vb = {}
 vb1 = {}
 
@@ -53,7 +69,10 @@ count = 1
 while True :
 	
 	if not vb1:
-		vb = ctb(kid,vb)	
+		vb = ctb(kid,vb)
+		print("1 TABLA DE VERDAD")
+		print(vb)
+	
 	else:
 		vb = vb1
 		vb1 = {}
@@ -70,8 +89,8 @@ while True :
 		while count != 1:
 			vb1 = ctb(kid,vb1)
 			count -= 1
-			print("vb1")
-			print(vb1)
+			#print("vb1")
+			#print(vb1)
 			time.sleep(60)
 			if count == 1:
 				vbr1 = {}
@@ -81,16 +100,21 @@ while True :
 					else:
 						vbr1[key] = False
 				chan = [k for k in vbr if vbr[k] != vbr1[k]]
-				print("chan")
-				print(chan)
+				#print("chan")
+				#print(chan)
 				for key in chan:
+					#print(ids[key])
 					if vb1[key] == True:
-						push(ids[key] + HASEN)
+						push(ids[key] + HASEN + " " + time.strftime("%H:%M:%S"))
 					else:
-						push(ids[key] + HASLE)
+						push(ids[key] + HASLE + " " + time.strftime("%H:%M:%S"))
 	count += 1
-	print("vb")
-	print(vb)
+	#print("vb")
+	print(time.strftime("%H:%M:%S"))
+	for key in vb:
+		print(ids[key])
+		print(vb[key])
+	#print(vb)
 	time.sleep(60)
 
 #----------------
