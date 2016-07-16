@@ -1,6 +1,7 @@
 # whocasa
 
 UPDATE: Found a better way to detect iphones but my coding skills suck to translate this C# code to python. http://www.power-home.com/forum/forum_posts.asp?TID=3250
+
 UPDATE: Thought on doing also some tcpdump to check if a device is sending stuff like discovery services etc. So it aways listens.
 
 REQUIREMENTS: nmap, python3.
