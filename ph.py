@@ -2,148 +2,139 @@ import subprocess
 import csv
 import sys
 import time
-from config import *
+import config
 from pushetta import Pushetta
 
-def nmac():
-	try:
-		x = subprocess.check_output(""" sudo nmap -sn 192.168.1.0/24 | grep --color=never -Po 'Address: \K.[^ ]*' """,shell=True).decode(sys.stdout.encoding).split("\n")
-		#print("NMAC X POP")
-		#print(x.pop())
+nmap = "nmap -sn 192.168.1.0/24 | grep --color=never -Po 'Address: \K.[^ ]*'"
 
-	except subprocess.CalledProcessError as e:
-		
-		print (e.output)
-		print("retrying in 60 seconds")
-		time.sleep(60)
-		x = nmac()
-			
-	x.pop()
-	return (x)
+
+def nmac():
+    try:
+        x = subprocess.check_output(
+            nmap,
+            shell=True).decode(sys.stdout.encoding).split("\n")
+    # print("NMAC X POP")
+    # print(x.pop())
+
+    except subprocess.CalledProcessError as e:
+        print(e.output)
+        print("retrying in 60 seconds")
+        time.sleep(60)
+        x = nmac()
+    x.pop()
+    return (x)
 
 
 def push(x):
-#	API_KEY="YOU API KEY"
-#	CHANNEL_NAME="YOUR CHANNEL NAME"
-	p=Pushetta(API_KEY)
-	p.pushMessage(CHANNEL_NAME, x)
+    # API_KEY="YOU API KEY"
+    # CHANNEL_NAME="YOUR CHANNEL NAME"
+    ps = Pushetta(config.API_KEY)
+    ps.pushMessage(config.CHANNEL_NAME, x)
 
 
-#sys.exit()
+# sys.exit()
 
-def addb(dic,key,val):
-	dic.setdefault(key, [])
-	dic[key].append(val)
 
-#def remb(dic,key):
-#	del (dic[key])[0]
+def addb(dic, key, val):
+    dic.setdefault(key, [])
+    dic[key].append(val)
 
-def ctb(ids,vb) :
-	mac = nmac()
-	print("NMAC")
-	print(mac)
-	matchv = list(set(kid).intersection(mac))
-	matchf = list(set(kid).difference(matchv))
 
-	for key in matchv:
-		addb(vb,key,True)
-	for key in matchf:
-		addb(vb,key,False)
-	
-	return (vb)
+# def remb(dic,key):
+# del (dic[key])[0]
 
-#ids csv file of MACADDRESS,DEVICENAME
-ids = {}
-for key, val in csv.reader(open("ids.csv")):
-    ids[key] = val
 
-kid = list(ids.keys())
+def ctb(kid, vb):
+    mac = nmac()
+    # print("NMAC")
+    # print(mac)
+    matchv = list(set(kid).intersection(mac))
+    matchf = list(set(kid).difference(matchv))
 
-print("KID")
-print(kid)
+    for key in matchv:
+        addb(vb, key, True)
+    for key in matchf:
+        addb(vb, key, False)
+    return (vb)
 
-vb = {}
-vb1 = {}
 
-count = 1
-while True :
-	
-	if not vb1:
-		vb = ctb(kid,vb)
-		print("1 TABLA DE VERDAD")
-		print(vb)
-	
-	else:
-		vb = vb1
-		vb1 = {}
-		count = 10
+def opcsv(nmbr):
+    # ids csv file of MACADDRESS,DEVICENAME
+    ids = {}
+    for key, val in csv.reader(open(nmbr)):
+        ids[key] = val
+    return(list(ids.keys()), ids)
 
-	if count == 10 :
-		vbr = {}
-		for key in vb:
-			if True in vb[key]:
-				vbr[key] = True
-			else:
-				vbr[key] = False
-				
-		while count != 1:
-			vb1 = ctb(kid,vb1)
-			count -= 1
-			#print("vb1")
-			#print(vb1)
-			time.sleep(60)
-			if count == 1:
-				vbr1 = {}
-				for key in vb1:
-					if True in vb1[key]:
-						vbr1[key] = True
-					else:
-						vbr1[key] = False
-				chan = [k for k in vbr if vbr[k] != vbr1[k]]
-				#print("chan")
-				#print(chan)
-				for key in chan:
-					#print(ids[key])
-					if vb1[key] == True:
-						push(ids[key] + HASEN + " " + time.strftime("%H:%M:%S"))
-					else:
-						push(ids[key] + HASLE + " " + time.strftime("%H:%M:%S"))
-	count += 1
-	#print("vb")
-	print(time.strftime("%H:%M:%S"))
-	for key in vb:
-		print(ids[key])
-		print(vb[key])
-	#print(vb)
-	time.sleep(60)
 
-#----------------
-#bolean dictionaries
-#def loop(bc):
-#	time.sleep(60)
+def prk(vbx):
+    for key in vbx:
+        print(vbx[key])
 
-#	mac1 = nmac()
 
-#	matchv1 = list(set(kid).intersection(mac1))
+def crvbr(vbx, vbrx):
+    for key in vbx:
+        if True in vbx[key]:
+            vbrx[key] = True
+        else:
+            vbrx[key] = False
 
-#	matchf1 = list(set(kid).difference(matchv1))
 
-#	vb1 = {}
-#	for key in matchv1:
-#        	vb1[key] = True
-#	for key in matchf1:
-#       	vb1[key] = False
+if __name__ == '__main__':
 
-	#vb1 = dict(vb)
-	#False = vb1['MACADDDRES']
-#	chan = [k for k in bc if bc[k] != vb1[k]]
+    (kid, ids) = opcsv("ids.csv")
+    print("KID")
+    print(kid)
 
-#	print (chan)
-#	for key in chan:
-#		if vb1[key] == True:
-#			push(ids[key] + HASEN) 
-#		else:
-#			push(ids[key] + HASLE)
-#	loop(vb1)
+    vb = {}
+    vb1 = {}
 
-#loop(vb)
+    count = 1
+    while True:
+
+        print(count)
+
+        if not vb1:
+            vb = ctb(kid, vb)
+            print("1 TABLA DE VERDAD")
+            print(vb)
+        else:
+            vb = vb1
+            vb1 = {}
+            count = 10
+
+        if count == 10:
+            vbr = {}
+
+            crvbr(vb, vbr)
+            while count != 1:
+                vb1 = ctb(kid, vb1)
+                count -= 1
+                # print("vb1")
+                # print(vb1)
+                time.sleep(60)
+                if count == 1:
+                    vbr1 = {}
+                    for key in vb1:
+                        if True in vb1[key]:
+                            vbr1[key] = True
+                        else:
+                            vbr1[key] = False
+
+                    chan = [k for k in vbr if vbr[k] != vbr1[k]]
+                    # print("chan")
+                    # print(chan)
+                    for key in chan:
+                        # print(ids[key])
+                        tme = time.strftime("%H:%M:%S")
+                        if vbr1[key]:
+                            push(ids[key] + config.HASEN + " " + tme)
+                        else:
+                            push(ids[key] + config.HASLE + " " + tme)
+        count += 1
+        # print("vb")
+        print(time.strftime("%H:%M:%S"))
+        for key in vb:
+            print(ids[key])
+            print(vb[key])
+        # print(vb)
+        time.sleep(60)
