@@ -78,39 +78,48 @@ def crvbr(vbx, vbrx):
         else:
             vbrx[key] = False
 
+tme = time.strftime("%H:%M:%S")
+
 
 if __name__ == '__main__':
 
     (kid, ids) = opcsv("ids.csv")
-    print("KID")
-    print(kid)
-
+    # print("KID")
+    # print(kid)
     vb = {}
     vb1 = {}
-
     count = 1
     while True:
-
         print(count)
-
         if not vb1:
             vb = ctb(kid, vb)
-            print("1 TABLA DE VERDAD")
-            print(vb)
+            print("TABLA DE VERDAD")
+            # print(vb)
         else:
-            vb = vb1
+            vb = dict(vb1)
             vb1 = {}
             count = 10
-
         if count == 10:
             vbr = {}
-
             crvbr(vb, vbr)
+            # print("VBR")
+            # print(vbr)
+            arlnot = []
             while count != 1:
                 vb1 = ctb(kid, vb1)
+                print("TABLA DE VERDAD 1")
                 count -= 1
-                # print("vb1")
+                for key in vbr:
+                    if ((vbr[key] is False) and
+                            (True in vb1[key]) and (key not in arlnot)):
+                        push(ids[key] + config.HASEN + " " + tme)
+                        arlnot.append(key)
+                print("vb1")
                 # print(vb1)
+                print(time.strftime("%H:%M:%S"))
+                for key in vb1:
+                    print(ids[key])
+                    print(vb1[key])
                 time.sleep(60)
                 if count == 1:
                     vbr1 = {}
@@ -119,19 +128,18 @@ if __name__ == '__main__':
                             vbr1[key] = True
                         else:
                             vbr1[key] = False
-
                     chan = [k for k in vbr if vbr[k] != vbr1[k]]
                     # print("chan")
                     # print(chan)
                     for key in chan:
                         # print(ids[key])
-                        tme = time.strftime("%H:%M:%S")
                         if vbr1[key]:
-                            push(ids[key] + config.HASEN + " " + tme)
+                            print(ids[key] + config.HASEN + " NOT NOF " + tme)
+                            # push(ids[key] + config.HASEN + " " + tme)
                         else:
                             push(ids[key] + config.HASLE + " " + tme)
         count += 1
-        # print("vb")
+        print("vb")
         print(time.strftime("%H:%M:%S"))
         for key in vb:
             print(ids[key])
