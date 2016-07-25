@@ -78,7 +78,18 @@ def crvbr(vbx, vbrx):
         else:
             vbrx[key] = False
 
-tme = time.strftime("%H:%M:%S")
+
+def earlnot(vbrx, vbx, arlnotx):
+    for key in vbrx:
+        if ((vbrx[key] is False) and
+                (True in vbx[key]) and (key not in arlnotx)):
+            push(ids[key] + config.HASEN + " " + tme)
+            arlnotx.append(key)
+    return(arlnotx)
+
+
+def tme():
+    return(time.strftime("%H:%M:%S"))
 
 
 if __name__ == '__main__':
@@ -109,11 +120,7 @@ if __name__ == '__main__':
                 vb1 = ctb(kid, vb1)
                 print("TABLA DE VERDAD 1")
                 count -= 1
-                for key in vbr:
-                    if ((vbr[key] is False) and
-                            (True in vb1[key]) and (key not in arlnot)):
-                        push(ids[key] + config.HASEN + " " + tme)
-                        arlnot.append(key)
+                arlnot = earlnot(vbr, vb1, arlnot)
                 print("vb1")
                 # print(vb1)
                 print(time.strftime("%H:%M:%S"))
