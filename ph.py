@@ -15,7 +15,6 @@ def nmac():
             shell=True).decode(sys.stdout.encoding).split("\n")
     # print("NMAC X POP")
     # print(x.pop())
-
     except subprocess.CalledProcessError as e:
         print(e.output)
         print("retrying in 60 seconds")
@@ -80,6 +79,7 @@ def crvbr(vbx, vbrx):
 
 
 def earlnot(vbrx, vbx, arlnotx):
+    tme = tmee()
     for key in vbrx:
         if ((vbrx[key] is False) and
                 (True in vbx[key]) and (key not in arlnotx)):
@@ -88,7 +88,7 @@ def earlnot(vbrx, vbx, arlnotx):
     return(arlnotx)
 
 
-def tme():
+def tmee():
     return(time.strftime("%H:%M:%S"))
 
 
@@ -138,6 +138,7 @@ if __name__ == '__main__':
                     chan = [k for k in vbr if vbr[k] != vbr1[k]]
                     # print("chan")
                     # print(chan)
+                    tme = tmee()
                     for key in chan:
                         # print(ids[key])
                         if vbr1[key]:
