@@ -3,7 +3,7 @@
 
 Send notifications who leaves or enters home by cellphones, laptops etc.
 
-## Posible better ways.
+## Posible better ways or improvements.
 
 1: Someone has found a better way to detect iphones but my coding skills suck to translate this C# code to python. [HERE](http://www.power-home.com/forum/forum_posts.asp?TID=3250)
 
@@ -12,6 +12,8 @@ Send notifications who leaves or enters home by cellphones, laptops etc.
 3: Might be better if we had control over the router/modem, DD-WRT, relay all traffic to the host idk.
 
 4: Use nmap api.
+
+5: The volume of the pushetta notification is loud as fuck lol.
 
 ## Setup
 
@@ -45,24 +47,37 @@ Takes `ids,csv` creates a list of of booleans wherever a device is detected, eve
 
 *pseudocode*
 
+
 12:23:DE,[True ,False,True ]
+
 23:EF:43,[False,False,False]
+
 
 Then it creates a conclusion, the conclusion is if the the device has been seen at least once during the cycle,. after 10~ cycles the conclusion is created and the cycle stopped.
 
+
 12:23:DE,[True ,False,True ,.....] -> 12:23:DE,True
+
 23:EF:43,[False,False,False,.....] -> 23:EF:43,False
+
 
 Then it begins another cycle. For another 10~ itinerations, and creates another conclusion.
 
+
 12:23:DE,[False,False,True,....] -> 12:23:DE,True
+
 23:EF:43,[True ,True ,True,....] -> 23:EF:43,True
+
 
 Then it compares conclusions. And looks for change so.
 
+
 False then False : device is not present dont send notification
+
 True  then True  : device is present dont send notification
+
 False then True  : device was not present, then is present so send notification is has arrived
+
 True  then False : devces was present, then is not present so send notification is has left
 
 Then it repeats using the last cycle as starting point.
