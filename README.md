@@ -9,8 +9,9 @@ Send notifications who leaves or enters home by cellphones, laptops etc.
 
 2: Thought on doing also some `tcpdump` to check if a device is sending stuff like discovery services etc. So it aways listens.
 
-3: Might be better if we had control over the router/modem, DD-WRT, relay all traffic to the pi idk.
+3: Might be better if we had control over the router/modem, DD-WRT, relay all traffic to the host idk.
 
+4: Use nmap api.
 
 ## Setup
 
@@ -23,17 +24,17 @@ REQUIREMENTS:`nmap`, python3.
 
 3) Paste the api key and channel name in the `config.py` file.
 
-4) Do `sudo pip3 install pushetta`
+4) Do `sudo pip3 install pushetta.`
 
-5) Install pusheta in your phone
+5) Install pusheta in your phone.
 
-6) Subscribe to your channel in the app
+6) Subscribe to your channel in the app.
 
 7) Use `nmap` or Fing (android app) to determine the MAC adresses of the devices you wanna keep track.
 
-8) Add those MAC adresses to `ids.csv` file with the format `MACADDRESS,NAMEDEVICE`
+8) Add those MAC adresses to `ids.csv` file with the format `MACADDRESS,NAMEDEVICE`.
 
-9) Script must run as root, or `sudo`.(i think `nmap` requires this)
+9) Script must run as root, or `sudo`.(i think `nmap` requires this).
 
 10) To start at boot add this line `python3 /home/pi/ph/ph.py &` to `/etc/rc.local` in the line before exit 0.
 
@@ -63,3 +64,5 @@ False then False : device is not present dont send notification
 True  then True  : device is present dont send notification
 False then True  : device was not present, then is present so send notification is has arrived
 True  then False : devces was present, then is not present so send notification is has left
+
+Then it repeats using the last cycle as starting point.
