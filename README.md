@@ -45,39 +45,34 @@ REQUIREMENTS:`nmap`, python3.
 
 Takes `ids,csv` creates a list of of booleans wherever a device is detected, every 60 seconds it appends.
 
-*pseudocode*
+*pseudocode is used*
 
-
+```
 12:23:DE,[True ,False,True ]
-
 23:EF:43,[False,False,False]
-
+```
 
 Then it creates a conclusion, the conclusion is if the the device has been seen at least once during the cycle,. after 10~ cycles the conclusion is created and the cycle stopped.
 
-
+```
 12:23:DE,[True ,False,True ,.....] -> 12:23:DE,True
-
 23:EF:43,[False,False,False,.....] -> 23:EF:43,False
-
+```
 
 Then it begins another cycle. For another 10~ itinerations, and creates another conclusion.
 
-
+```
 12:23:DE,[False,False,True,....] -> 12:23:DE,True
-
 23:EF:43,[True ,True ,True,....] -> 23:EF:43,True
-
+```
 
 Then it compares conclusions. And looks for change so.
 
-
+```
 False then False : device is not present dont send notification
-
 True  then True  : device is present dont send notification
-
 False then True  : device was not present, then is present so send notification is has arrived
-
 True  then False : devces was present, then is not present so send notification is has left
+```
 
 Then it repeats using the last cycle as starting point.
