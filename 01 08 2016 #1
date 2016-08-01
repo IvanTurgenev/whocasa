@@ -1,0 +1,29 @@
+vb
+16:20:57
+#cicle 1
+PadCom
+[False]
+PadCel
+[False]
+KarCel
+[False]
+JuaCel
+[True]
+KarCom
+[False]
+MadCel
+[False]vb
+16:22:01
+#cicle 2
+PadCom
+[False, False]
+PadCel
+[False, False]
+KarCel
+[False, False]
+JuaCel
+[True, True]
+KarCom
+[False, False]
+MadCel
+[False, False]
