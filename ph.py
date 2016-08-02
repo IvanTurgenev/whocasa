@@ -9,7 +9,7 @@ from pushetta import Pushetta
 
 
 ipr = config.ipr
-nmap = "nmap -sn " + ipr + " | grep --color=never -Po 'Address: \K.[^ ]*'"
+nmap = "nmap -sn " + ipr + " | awk '/Address:/ {print $3}' "
 
 
 def nmac():
@@ -20,12 +20,12 @@ def nmac():
     # print("NMAC X POP")
     # print(x.pop())
     except subprocess.CalledProcessError as e:
-        cfl(fln, [e.output, "retrying in 60 seconds"])
+        cfl(fln, [str(e.output), "retrying in 60 seconds"])
         # print(e.output)
         # print("retrying in 60 seconds")
         time.sleep(60)
         x = nmac()
-    x.pop()
+    # x.pop()
     return (x)
 
 
