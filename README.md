@@ -24,7 +24,7 @@ REQUIREMENTS:`nmap`, python3.
 
 2) Create a channel in pushetta and grab your api key from the dashboard.
 
-3) Paste the api key and channel name in the `config.py` file.
+3) Paste the api key and channel name in the `config.py` file, also paste your ip range.
 
 4) Do `sudo pip3 install pushetta.`
 
