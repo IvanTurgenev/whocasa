@@ -1,4 +1,3 @@
-
 import os
 import subprocess
 import csv
@@ -6,7 +5,7 @@ import sys
 import time
 import config
 from pushetta import Pushetta
-
+import configuser as config
 
 ipr = config.ipr
 nmap = "nmap -sn " + ipr + " | awk '/Address:/ {print $3}' "
@@ -14,13 +13,11 @@ nmap = "nmap -sn " + ipr + " | awk '/Address:/ {print $3}' "
 
 def nmac():
     try:
-        x = subprocess.check_output(
-            nmap,
-            shell=True).decode(sys.stdout.encoding).split("\n")
+        x = subprocess.check_output(nmap,shell=True).decode(sys.stdout.encoding).split("\n")
     # print("NMAC X POP")
     # print(x.pop())
     except subprocess.CalledProcessError as e:
-        cfl(fln, [str(e.output), "retrying in 60 seconds"])
+        cfl(  [str(e.output), "retrying in 60 seconds"])
         # print(e.output)
         # print("retrying in 60 seconds")
         time.sleep(60)
@@ -32,10 +29,11 @@ def nmac():
 def push(x):
     # API_KEY="YOU API KEY"
     # CHANNEL_NAME="YOUR CHANNEL NAME"
-    ps = Pushetta(config.API_KEY)
-    ps.pushMessage(config.CHANNEL_NAME, x)
-
-
+    try:
+        ps = Pushetta(config.API_KEY)
+        ps.pushMessage(config.CHANNEL_NAME, x)
+    except:
+        cfl(  x)
 # sys.exit()
 
 
@@ -82,9 +80,9 @@ def earlnot(vbrx, vbx, arlnotx):
     tme = tmee()
     for key in vbrx:
         if ((vbrx[key] is False) and
-                (True in vbx[key]) and (key not in arlnotx)):
+            (True in vbx[key]) and (key not in arlnotx)):
             push(ids[key] + config.HASEN + " " + tme)
-            cfl(fln, [ids[key] + config.HASEN + " " + tme])
+            cfl(  [ids[key] + config.HASEN + " " + tme])
             arlnotx.append(key)
     return(arlnotx)
 
@@ -93,22 +91,12 @@ def tmee():
     return(time.strftime("%H:%M:%S"))
 
 
-def nlog():
-    fln = time.strftime("%d %m %Y")
-    if os.path.isfile(fln):
-        count = 1
-        while True:
-            if os.path.isfile(fln + " #" + str(count)) is False:
-                return(fln + " #" + str(count))
-            else:
-                count += 1
-    else:
-        return(fln)
 
 
-def cfl(fln, ln):
-    with open(fln, 'a') as f:
-        f.write("\n".join(ln))
+def cfl(ln):
+    dia = time.strftime("%d %m %Y")
+    with open(dia(), 'a') as f:
+        f.write(join(ln+" " + tmee()+  " "+"\n"))
         print("\n".join(ln))
 
 
@@ -119,11 +107,24 @@ def lstvb(idsx, vbx):
         lst.append(str(vbx[key]))
     return(lst)
 
+def createUserConf:
+    if not isfile("configuser.py"):
+        conu = open("configuser.py",'x')
+        cons = open("config.py",'r')
+        conu.write.cons.read()
+        print("NO CONFIG USER FILE DETECTED CREATING ONE FROM TEMPLATE MODIFY ACCORDINLY config.py --> configuser.py")
+        sys.exit()
+    elif not isfile("idsuser.csv"):
+        idsu = open("idsuser.csv",'x')
+        idss = open("ids.csv",'r')
+        idsu.write.idss.read()
+        print("NO IDS USER FILE DETECTED CREATING ONE FROM TEMPLATE MODIFY ACCORDINLY ids.csv --> idsuser.csv")
+        sys.exit()
+
+
 
 if __name__ == '__main__':
-
-    fln = nlog()
-    (kid, ids) = opcsv("ids.csv")
+    (kid, ids) = opcsv("idsuser.csv")
     # print("KID")
     # print(kid)
     vb = {}
@@ -156,7 +157,7 @@ if __name__ == '__main__':
                 # print(ids[key])
                 # print(vb1[key])
                 vbl1 = lstvb(ids, vb1)
-                cfl(fln, ["vb1", tmee(), "#cicle " + str(count)] + vbl1)
+                cfl(  ["vb1", tmee(), "#cicle " + str(count)] + vbl1)
                 count -= 1
                 time.sleep(60)
                 if count == 1:
@@ -166,9 +167,9 @@ if __name__ == '__main__':
                             vbr1[key] = True
                         else:
                             vbr1[key] = False
-                    chan = [k for k in vbr if vbr[k] != vbr1[k]]
-                    # print("chan")
-                    # print(chan)
+                            chan = [k for k in vbr if vbr[k] != vbr1[k]]
+                            # print("chan")
+                            # print(chan)
                     tme = tmee()
                     for key in chan:
                         # print(ids[key])
@@ -176,11 +177,11 @@ if __name__ == '__main__':
                             push(ids[key] + config.HASLE + " " + tme)
                         else:
                             ntf = [ids[key] + config.HASEN + " NOT NOF " + tme]
-                            cfl(fln, ntf)
-                        # print(ids[key] + config.HASEN + " NOT NOF"+tme)
-                        # push(ids[key] + config.HASEN + " " + tme)
+                            cfl(  ntf)
+                            # print(ids[key] + config.HASEN + " NOT NOF"+tme)
+                            # push(ids[key] + config.HASEN + " " + tme)
         vbl = lstvb(ids, vb)
-        cfl(fln, ["vb", tmee(), "#cicle " + str(count)] + vbl)
+        cfl(  ["vb", tmee(), "#cicle " + str(count)] + vbl)
         count += 1
         # print("vb")
         # print(time.strftime("%H:%M:%S"))
