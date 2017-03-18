@@ -1,0 +1,9 @@
+#install for raspbian/debian
+
+sudo apt update
+sudo apt install git
+git clone https://github.com/IvanTurgenev/whocasa.git
+sudo apt install python3
+sudo apt install python3-pip
+sudo pip3 install pushetta
+sudo python3 ph.py
