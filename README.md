@@ -19,7 +19,7 @@ Send notifications who leaves or enters home by cellphones, laptops etc.
 
 ## Setup
 
-REQUIREMENTS:`nmap`, `sudo`, python3.
+REQUIREMENTS:`nmap`, `sudo`, python3, see install file.
 
 
 1) Register in http://www.pushetta.com.
