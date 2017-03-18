@@ -36,7 +36,7 @@ REQUIREMENTS:`nmap`, `sudo`, python3.
 
 7) Use `nmap` or Fing (android app) to determine the MAC adresses of the devices you wanna keep track.
 
-8) Add those MAC adresses to `idsuser.csv` file with the format `MACADDRESS,NAMEDEVICE`.
+8) Add those MAC adresses to `idsuser.csv` file with the format `MACADDRESS,NAMEDEVICE` it already has some example mac addresses.
 
 9) Script must run as root, or `sudo`.(i think `nmap` requires this for mac addresses).
 
