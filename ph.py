@@ -1,11 +1,17 @@
 import os
 import subprocess
+import os.path
 import csv
 import sys
 import time
 import config
 from pushetta import Pushetta
-import configuser as config
+
+try:
+    import configuser as config
+except ImportError:
+    import config
+
 
 ipr = config.ipr
 nmap = "nmap -sn " + ipr + " | awk '/Address:/ {print $3}' "
@@ -17,7 +23,7 @@ def nmac():
     # print("NMAC X POP")
     # print(x.pop())
     except subprocess.CalledProcessError as e:
-        cfl(  [str(e.output), "retrying in 60 seconds"])
+        cfl(  [str(e.output), "retrying inhttps://www.reddit.com/r/AyyMD/top/?sort=top&t=month 60 seconds"])
         # print(e.output)
         # print("retrying in 60 seconds")
         time.sleep(60)
@@ -95,8 +101,8 @@ def tmee():
 
 def cfl(ln):
     dia = time.strftime("%d %m %Y")
-    with open(dia(), 'a') as f:
-        f.write(join(ln+" " + tmee()+  " "+"\n"))
+    with open(dia, 'a') as f:
+        f.write("\n".join(ln))
         print("\n".join(ln))
 
 
@@ -107,23 +113,34 @@ def lstvb(idsx, vbx):
         lst.append(str(vbx[key]))
     return(lst)
 
-def createUserConf:
-    if not isfile("configuser.py"):
+def createuserconf():
+    if not os.path.isfile("configuser.py"):
         conu = open("configuser.py",'x')
         cons = open("config.py",'r')
-        conu.write.cons.read()
+        conss = cons.read()
+        conu.write(conss)
+        conu.close()
         print("NO CONFIG USER FILE DETECTED CREATING ONE FROM TEMPLATE MODIFY ACCORDINLY config.py --> configuser.py")
-        sys.exit()
-    elif not isfile("idsuser.csv"):
+        extt = 1
+    if not os.path.isfile("idsuser.csv"):
         idsu = open("idsuser.csv",'x')
         idss = open("ids.csv",'r')
-        idsu.write.idss.read()
+        idsss = idss.read()
+        idsu.write(idsss)
+        idsu.close()
         print("NO IDS USER FILE DETECTED CREATING ONE FROM TEMPLATE MODIFY ACCORDINLY ids.csv --> idsuser.csv")
+        extt = 1
+# check if variable exists
+    try:
+        extt
         sys.exit()
+    except NameError:
+        print("User files exist")
 
 
 
 if __name__ == '__main__':
+    createuserconf()
     (kid, ids) = opcsv("idsuser.csv")
     # print("KID")
     # print(kid)
@@ -167,7 +184,7 @@ if __name__ == '__main__':
                             vbr1[key] = True
                         else:
                             vbr1[key] = False
-                            chan = [k for k in vbr if vbr[k] != vbr1[k]]
+                    chan = [k for k in vbr if vbr[k] != vbr1[k]]
                             # print("chan")
                             # print(chan)
                     tme = tmee()
